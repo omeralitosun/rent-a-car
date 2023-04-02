@@ -22,8 +22,8 @@ public class CarController {
     private CarService service;
 
     @GetMapping
-    public List<GetAllCarResponse> getAll(){
-        return service.getAll();
+    public List<GetAllCarResponse> getAll(@RequestParam int statu){
+        return service.getAll(statu);
     }
 
     @GetMapping("/{id}")

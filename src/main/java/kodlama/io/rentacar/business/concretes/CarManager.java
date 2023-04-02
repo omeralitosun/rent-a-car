@@ -21,14 +21,25 @@ public class CarManager implements CarService {
     private final CarRepository repository;
     private final ModelMapper mapper;
     @Override
-    public List<GetAllCarResponse> getAll() {
+    public List<GetAllCarResponse> getAll(int statu) {
         List<Car> cars = repository.findAll();
-        List<GetAllCarResponse> response = cars
-                .stream()
-                .map(car -> mapper.map(car, GetAllCarResponse.class))
-                .toList();
 
-        return response;
+        if(statu==0) {
+            List<GetAllCarResponse> response = cars
+                    .stream()
+                    .map(car -> mapper.map(car, GetAllCarResponse.class))
+                    .toList();
+            return response;
+        }
+        else{
+            List<GetAllCarResponse> response = cars
+                    .stream()
+                    .filter(car -> car.getState() == statu)
+                    .map(car -> mapper.map(car, GetAllCarResponse.class))
+                    .toList();
+            return response;
+        }
+
     }
 
     @Override
@@ -77,4 +88,6 @@ public class CarManager implements CarService {
     private void checkIfCarExistsByPlate(String plate){
         if(repository.existsByPlateIgnoreCase(plate)) throw new RuntimeException("Bu plakaya sahip bir araç mevcut");
     }
+
+
 }
