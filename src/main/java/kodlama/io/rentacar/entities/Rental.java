@@ -9,20 +9,20 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="maintenances")
-public class Maintenance {
+@Table(name = "rentals")
+public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String information;
+    private double dailyPrice;
+    private int rentedForDays;
+    private double totalPrice;
     private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private boolean isCompleted;
     @ManyToOne
-    @JoinColumn(name="car_id")
+    @JoinColumn(name = "car_id")
     private Car car;
 }

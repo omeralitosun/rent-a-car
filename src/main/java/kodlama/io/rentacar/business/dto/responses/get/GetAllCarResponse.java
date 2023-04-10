@@ -1,5 +1,6 @@
 package kodlama.io.rentacar.business.dto.responses.get;
 
+import kodlama.io.rentacar.entities.enums.State;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ public class GetAllCarResponse {
     private int id;
     private int modelYear;
     private String plate;
-    private int state; // 1 - Available, 2 - Rented, 3 - Maintance
+    private State state; // 1 - Available, 2 - Rented, 3 - Maintance
     private double dailyPrice;
     private int modelId;
 }

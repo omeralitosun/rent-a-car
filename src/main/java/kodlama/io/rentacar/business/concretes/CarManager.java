@@ -8,12 +8,14 @@ import kodlama.io.rentacar.business.dto.responses.get.GetAllCarResponse;
 import kodlama.io.rentacar.business.dto.responses.get.GetCarResponse;
 import kodlama.io.rentacar.business.dto.responses.update.UpdateCarResponse;
 import kodlama.io.rentacar.entities.Car;
+import kodlama.io.rentacar.entities.enums.State;
 import kodlama.io.rentacar.repository.CarRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -21,10 +23,10 @@ public class CarManager implements CarService {
     private final CarRepository repository;
     private final ModelMapper mapper;
     @Override
-    public List<GetAllCarResponse> getAll(int statu) {
+    public List<GetAllCarResponse> getAll(State state) {
         List<Car> cars = repository.findAll();
 
-        if(statu==0) {
+        if(Objects.isNull(state)) {
             List<GetAllCarResponse> response = cars
                     .stream()
                     .map(car -> mapper.map(car, GetAllCarResponse.class))
@@ -34,7 +36,7 @@ public class CarManager implements CarService {
         else{
             List<GetAllCarResponse> response = cars
                     .stream()
-                    .filter(car -> car.getState() == statu)
+                    .filter(car -> car.getState().equals(state))
                     .map(car -> mapper.map(car, GetAllCarResponse.class))
                     .toList();
             return response;
@@ -56,6 +58,7 @@ public class CarManager implements CarService {
         checkIfCarExistsByPlate(request.getPlate());
         Car car = mapper.map(request,Car.class);
         car.setId(0);
+        car.setState(State.AVAILABLE);
         repository.save(car);
         CreateCarResponse response = mapper.map(car,CreateCarResponse.class);
 
@@ -77,6 +80,15 @@ public class CarManager implements CarService {
     public void delete(int id) {
         checkIfCarExistsById(id);
         repository.deleteById(id);
+    }
+
+    @Override
+    public void changeState(int carId, State state) {
+        checkIfCarExistsById(carId);
+        Car car = repository.findById(carId).orElseThrow();
+        car.setState(state);
+
+        repository.save(car);
     }
 
     //Business Rules

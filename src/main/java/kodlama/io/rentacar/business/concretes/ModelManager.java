@@ -5,7 +5,6 @@ import kodlama.io.rentacar.business.dto.requests.create.CreateModelRequest;
 import kodlama.io.rentacar.business.dto.requests.update.UpdateModelRequest;
 import kodlama.io.rentacar.business.dto.responses.create.CreateModelResponse;
 import kodlama.io.rentacar.business.dto.responses.get.GetAllModelResponse;
-import kodlama.io.rentacar.business.dto.responses.get.GetBrandResponse;
 import kodlama.io.rentacar.business.dto.responses.get.GetModelResponse;
 import kodlama.io.rentacar.business.dto.responses.update.UpdateModelResponse;
 import kodlama.io.rentacar.entities.Model;

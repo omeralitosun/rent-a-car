@@ -1,19 +1,18 @@
 package kodlama.io.rentacar.business.dto.requests.create;
 
+import kodlama.io.rentacar.business.dto.PaymentRequest;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CreateCarRequest {
-    private int modelYear;
-    private String plate;
-    //private State state; // 1 - Available, 2 - Rented, 3 - Maintance
+public class CreateRentalRequest {
+    private int carId;
     private double dailyPrice;
-    private int modelId;
+    private int rentedForDays;
+    private PaymentRequest paymentRequest;
 }
-
